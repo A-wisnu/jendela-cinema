@@ -4,6 +4,18 @@ import './MovieLobby.css';
 const API_KEY = '034fd7d00aa9bacd49eed80bc9aab23c';
 const API_READ_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMzRmZDdkMDBhYTliYWNkNDllZWQ4MGJjOWFhYjIzYyIsIm5iZiI6MTc2NTE4NzA2NS43NTcsInN1YiI6IjY5MzY5ZGY5YzI1ODU1YzU3YTRlNTJhYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.889twlkDmb9FxuJXmCgYHneU2tEYAcudjocM-OiuVXk';
 
+// Daftar judul film yang diblokir
+const BLOCKED_TITLES = [
+    'kelas bintang',
+    'hot moms',
+    'hot mom',
+    'milf',
+    'xxx',
+    'porn',
+    'sex',
+    'adult only'
+];
+
 const MovieLobby = ({ onSelectMovie }) => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -35,12 +47,24 @@ const MovieLobby = ({ onSelectMovie }) => {
                 }
             }
 
-            setMovies(allMovies);
+            // Filter out blocked titles
+            const filteredMovies = allMovies.filter(movie => !isBlockedTitle(movie));
+            setMovies(filteredMovies);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching movies:', error);
             setLoading(false);
         }
+    };
+
+    // Function to check if a movie title is blocked
+    const isBlockedTitle = (movie) => {
+        const title = (movie.title || '').toLowerCase();
+        const originalTitle = (movie.original_title || '').toLowerCase();
+
+        return BLOCKED_TITLES.some(blockedWord =>
+            title.includes(blockedWord) || originalTitle.includes(blockedWord)
+        );
     };
 
     const filteredMovies = movies.filter(movie => {

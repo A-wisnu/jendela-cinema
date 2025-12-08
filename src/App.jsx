@@ -46,11 +46,10 @@ function App() {
         transition('q2', 'q3', 'data_valid');
     };
 
-    // q2 -> q0: cancel
+    // q2 -> q1: cancel (kembali ke pemilihan kursi)
     const handleCancelValidation = () => {
-        setSelectedMovie(null);
         setBookingData(null);
-        transition('q2', 'q0', 'cancel');
+        transition('q2', 'q1', 'cancel');
     };
 
     // q3 -> q4: pin_valid
@@ -95,7 +94,7 @@ function App() {
                         <PaymentAuth
                             bookingData={bookingData}
                             onSuccess={handlePaymentSuccess}
-                            onCancel={handleCancelPayment}
+                            onCancel={currentState === 'q2' ? handleCancelValidation : handleCancelPayment}
                             currentState={currentState}
                             onDataValid={handleDataValid}
                         />

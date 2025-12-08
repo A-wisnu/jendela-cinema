@@ -198,7 +198,7 @@ const PaymentAuth = ({ bookingData, onSuccess, onCancel, currentState, onDataVal
 
             <div className="payment-actions">
                 <button className="p5-button secondary" onClick={onCancel}>
-                    BATAL
+                    KEMBALI
                 </button>
             </div>
         </div>
