@@ -1,0 +1,198 @@
+:root {
+  /* Persona 5 Color Palette */
+  --p5-red: #E60012;
+  --p5-black: #000000;
+  --p5-yellow: #FFFF00;
+  --p5-white: #FFFFFF;
+  --p5-gray: #333333;
+  --p5-blue: #001F3F;
+  --p5-cyan: #00FFFF;
+  --p5-green: #00FF00;
+  
+  /* Typography */
+  --font-primary: 'Arial Black', 'Impact', sans-serif;
+  --font-secondary: 'Courier New', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  background: var(--p5-black);
+  color: var(--p5-white);
+  overflow-x: hidden;
+}
+
+/* Halftone Background Pattern */
+.halftone-bg {
+  background-image: 
+    radial-gradient(circle, var(--p5-red) 1px, transparent 1px),
+    radial-gradient(circle, var(--p5-red) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+  opacity: 0.1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%) skewX(-5deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) skewX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--p5-red), 0 0 10px var(--p5-red);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--p5-red), 0 0 30px var(--p5-red);
+  }
+}
+
+/* Polygonal Button Style */
+.p5-button {
+  background: var(--p5-red);
+  color: var(--p5-white);
+  border: none;
+  padding: 15px 30px;
+  font-family: var(--font-primary);
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+  transition: all 0.3s ease;
+  letter-spacing: 2px;
+}
+
+.p5-button:hover {
+  background: var(--p5-yellow);
+  color: var(--p5-black);
+  transform: translateY(-3px) skewX(-2deg);
+  box-shadow: 0 5px 15px rgba(230, 0, 18, 0.5);
+}
+
+.p5-button:active {
+  transform: translateY(0) skewX(0deg);
+}
+
+.p5-button.secondary {
+  background: var(--p5-gray);
+  clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 10% 100%);
+}
+
+.p5-button.secondary:hover {
+  background: var(--p5-white);
+  color: var(--p5-black);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--p5-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--p5-red);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--p5-yellow);
+}
+
+/* Utility Classes */
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.fade-out {
+  animation: fadeOut 1s ease-in-out;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.8s ease-out;
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.rotate {
+  animation: rotate 20s linear infinite;
+}
+
+.glow {
+  animation: glow 2s ease-in-out infinite;
+}

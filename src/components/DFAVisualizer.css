@@ -1,0 +1,168 @@
+.dfa-visualizer {
+    background: linear-gradient(135deg, #001F3F 0%, #000814 100%);
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+    position: relative;
+}
+
+.dfa-header {
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 3px solid var(--p5-red);
+    padding-bottom: 10px;
+}
+
+.dfa-header h2 {
+    color: var(--p5-yellow);
+    font-size: 24px;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px var(--p5-yellow);
+}
+
+.dfa-subtitle {
+    color: var(--p5-cyan);
+    font-family: var(--font-secondary);
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.dfa-diagram {
+    width: 100%;
+    height: 400px;
+    margin: 20px 0;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--p5-red);
+    border-radius: 10px;
+}
+
+.dfa-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.dfa-section {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--p5-red);
+    border-radius: 5px;
+    padding: 15px;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+}
+
+.dfa-section h3 {
+    color: var(--p5-yellow);
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.tuple-content p,
+.grammar-content p {
+    color: var(--p5-white);
+    font-family: var(--font-secondary);
+    font-size: 13px;
+    margin: 5px 0;
+    line-height: 1.6;
+}
+
+.tuple-content strong {
+    color: var(--p5-cyan);
+    font-weight: bold;
+}
+
+.current-state-display {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.state-badge {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #000000;
+    text-shadow: none;
+    min-width: 60px;
+    text-align: center;
+}
+
+.state-name {
+    color: var(--p5-white);
+    font-size: 16px;
+}
+
+.transition-table-container {
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+.transition-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-secondary);
+    font-size: 12px;
+}
+
+.transition-table th {
+    background: var(--p5-red);
+    color: var(--p5-white);
+    padding: 10px 8px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid rgba(230, 0, 18, 0.5);
+    text-transform: lowercase;
+    font-size: 11px;
+}
+
+.transition-table td {
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--p5-white);
+    padding: 10px 8px;
+    text-align: center;
+    border: 1px solid rgba(230, 0, 18, 0.3);
+    transition: all 0.3s ease;
+}
+
+.transition-table .state-cell {
+    background: rgba(230, 0, 18, 0.2);
+    color: var(--p5-yellow);
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.transition-table .current-row {
+    background: rgba(0, 255, 255, 0.1);
+}
+
+.transition-table .current-row .state-cell {
+    background: var(--p5-cyan);
+    color: var(--p5-black);
+    box-shadow: 0 0 10px var(--p5-cyan);
+}
+
+.transition-table .active-cell {
+    background: var(--p5-yellow) !important;
+    color: var(--p5-black) !important;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255, 255, 0, 0.7);
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.transition-table td:hover {
+    background: rgba(230, 0, 18, 0.3);
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dfa-diagram {
+        height: 300px;
+    }
+
+    .dfa-header h2 {
+        font-size: 18px;
+    }
+}

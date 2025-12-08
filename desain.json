@@ -1,0 +1,174 @@
+{
+  "project_meta": {
+    "app_name": "Jendela Cinema",
+    "version": "1.0.0-MVP",
+    "theme": "Persona 5 Aesthetic (Stylish, Rebel, Noir-Red)",
+    "architecture": "Split-Screen (Interactive UI + Realtime Automata Visualizer)"
+  },
+  "layout_structure": {
+    "screen_split": {
+      "left_panel": {
+        "role": "User Interface (The Metaverse)",
+        "width": "50%",
+        "style_guide": {
+          "primary_color": "#E60012",
+          "secondary_color": "#000000",
+          "accent_color": "#FFFF00",
+          "font_style": "Comic/Bold/Skewed",
+          "ui_elements": "Polygonal buttons, jagged transitions, halftone backgrounds"
+        }
+      },
+      "right_panel": {
+        "role": "Logic Visualizer (The Velvet Room)",
+        "width": "50%",
+        "background": "Deep Blue/Black Texture",
+        "components": [
+          "DFA_Explanation_Card",
+          "Interactive_State_Diagram",
+          "Formal_Definition_5_Tuple",
+          "Transition_Table",
+          "Grammar_Rules"
+        ]
+      }
+    }
+  },
+  "automata_logic": {
+    "theory_type": "DFA (Deterministic Finite Automata)",
+    "explanation_text": "Sistem ini adalah DFA karena setiap input (aksi user) memetakan state saat ini ke TEPAT SATU state berikutnya secara pasti. Tidak ada ambiguitas atau jalur paralel.",
+    "formal_definition_5_tuple": {
+      "Q (States)": ["q0 (Lobby)", "q1 (Seat_Selection)", "q2 (Payment_Auth)", "q3 (Ticket_Issued)"],
+      "Sigma (Alphabet/Inputs)": ["select_movie", "confirm_seat", "input_pin_valid", "input_pin_invalid", "cancel", "reset"],
+      "delta (Transition Function)": "Lihat Tabel Transisi",
+      "q0 (Start State)": "q0",
+      "F (Final States)": ["q3"]
+    },
+    "grammar_rules": {
+      "type": "Regular Grammar",
+      "variables": ["S (Start/q0)", "A (Seat/q1)", "B (Payment/q2)", "C (Ticket/q3)"],
+      "productions": [
+        "S -> select_movie A",
+        "A -> confirm_seat B | cancel S",
+        "B -> input_pin_invalid B | input_pin_valid C | cancel S",
+        "C -> reset S | epsilon"
+      ]
+    }
+  },
+  "interactive_flow_states": [
+    {
+      "state_id": "q0",
+      "state_name": "Lobby / Main Menu",
+      "ui_left_side": {
+        "visual": "Daftar poster film dengan border miring.",
+        "headline": "TAKE YOUR TIME",
+        "animation": "Background bintang berputar pelan."
+      },
+      "diagram_right_side": {
+        "active_node": "q0",
+        "highlight_color": "#00FF00",
+        "active_arrow": null
+      },
+      "transitions": [
+        {
+          "trigger": "User klik Poster Film",
+          "input_symbol": "select_movie",
+          "next_state": "q1",
+          "diagram_effect": "Panah q0->q1 menyala"
+        }
+      ]
+    },
+    {
+      "state_id": "q1",
+      "state_name": "Seat Selection",
+      "ui_left_side": {
+        "visual": "Denah kursi berbentuk ikon sofa.",
+        "headline": "CHOOSE YOUR TARGET",
+        "action_button": "SEND CALLING CARD (Book)"
+      },
+      "diagram_right_side": {
+        "active_node": "q1",
+        "highlight_color": "#00FF00",
+        "active_arrow": "q0 -> q1"
+      },
+      "transitions": [
+        {
+          "trigger": "User klik 'Lanjut'",
+          "input_symbol": "confirm_seat",
+          "next_state": "q2",
+          "diagram_effect": "Panah q1->q2 menyala"
+        },
+        {
+          "trigger": "User klik 'Back'",
+          "input_symbol": "cancel",
+          "next_state": "q0",
+          "diagram_effect": "Panah putus-putus q1->q0 menyala"
+        }
+      ]
+    },
+    {
+      "state_id": "q2",
+      "state_name": "Payment & PIN Authentication",
+      "ui_left_side": {
+        "visual": "Numpad input dengan efek getar.",
+        "headline": "INTERROGATION ROOM",
+        "mascot_dialog": "Don't mess this up!"
+      },
+      "diagram_right_side": {
+        "active_node": "q2",
+        "highlight_color": "#FFFF00",
+        "active_arrow": "q1 -> q2"
+      },
+      "transitions": [
+        {
+          "trigger": "PIN Salah",
+          "input_symbol": "input_pin_invalid",
+          "next_state": "q2",
+          "diagram_effect": "Looping arrow pada q2 menyala Merah (Error)"
+        },
+        {
+          "trigger": "PIN Benar",
+          "input_symbol": "input_pin_valid",
+          "next_state": "q3",
+          "diagram_effect": "Panah q2->q3 menyala Hijau Neon"
+        },
+        {
+          "trigger": "User klik 'Cancel'",
+          "input_symbol": "cancel",
+          "next_state": "q0",
+          "diagram_effect": "Panah putus-putus q2->q0 menyala"
+        }
+      ]
+    },
+    {
+      "state_id": "q3",
+      "state_name": "Ticket Issued (Final)",
+      "ui_left_side": {
+        "visual": "Tiket muncul seperti kartu Tarot berputar.",
+        "headline": "MISSION ACCOMPLISHED",
+        "qr_code": "Generated"
+      },
+      "diagram_right_side": {
+        "active_node": "q3",
+        "highlight_color": "#00FFFF",
+        "node_style": "Double Circle (Final State)",
+        "active_arrow": "q2 -> q3"
+      },
+      "transitions": [
+        {
+          "trigger": "User klik 'Close'",
+          "input_symbol": "reset",
+          "next_state": "q0",
+          "diagram_effect": "Panah q3->q0 menyala"
+        }
+      ]
+    }
+  ],
+  "transition_table_data": [
+    { "state": "q0", "input": "select_movie", "next": "q1", "desc": "Pilih Film" },
+    { "state": "q1", "input": "confirm_seat", "next": "q2", "desc": "Konfirmasi Kursi" },
+    { "state": "q1", "input": "cancel", "next": "q0", "desc": "Batal Pilih" },
+    { "state": "q2", "input": "pin_invalid", "next": "q2", "desc": "Gagal Validasi" },
+    { "state": "q2", "input": "pin_valid", "next": "q3", "desc": "Validasi Sukses" },
+    { "state": "q2", "input": "cancel", "next": "q0", "desc": "Batal Bayar" },
+    { "state": "q3", "input": "reset", "next": "q0", "desc": "Selesai" }
+  ]
+}

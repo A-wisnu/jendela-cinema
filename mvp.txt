@@ -1,0 +1,79 @@
+Alur Pengguna (User Flow)
+1. Halaman Beranda (Discovery)
+User masuk ke website.
+Tampilan: Daftar film yang sedang tayang (Now Showing) dalam bentuk grid poster.
+Aksi User: Klik pada poster film yang menarik.
+Fitur MVP: Tidak perlu filter rumit, cukup Search Bar (Pencarian judul) dan daftar film Now Showing.
+2. Detail Film & Jadwal (Selection)
+User melihat detail singkat dan memilih waktu.
+Tampilan: Judul, Sinopsis singkat, Durasi, dan Daftar Jam Tayang (misal: Hari ini & Besok saja).
+Aksi User:
+Melihat jam tayang yang tersedia.
+Mengklik tombol jam/lokasi yang diinginkan (misal: "Grand Mall - 19:00").
+Fitur MVP: Gabungkan detail film dan jadwal dalam satu halaman untuk mengurangi jumlah klik.
+3. Pemilihan Kursi (Seat Selection)
+User memilih tempat duduk.
+Tampilan: Denah kursi bioskop sederhana.
+Abu-abu: Tersedia.
+Merah: Terisi (Sold).
+Hijau: Dipilih User (Selected).
+Info: Harga total muncul secara real-time saat kursi diklik.
+Aksi User: Klik kursi yang diinginkan -> Klik tombol "Lanjut ke Pembayaran".
+4. Identitas Pemesan (Authentication/Guest)
+User memasukkan data diri agar tiket bisa dikirim.
+Tampilan: Form sederhana.
+Aksi User:
+Opsi 1 (Paling Simple): Checkout sebagai Tamu (Guest). Hanya minta Nama dan Email (wajib untuk kirim tiket).
+Opsi 2: Login/Register (bisa ditaruh nanti untuk versi 2.0 agar user tidak malas di awal).
+Fitur MVP: Fokus pada Guest Checkout dengan validasi email.
+5. Ringkasan & Pembayaran (Payment)
+User memverifikasi pesanan dan membayar.
+Tampilan: Ringkasan pesanan (Judul Film, Bioskop, Jam, Nomor Kursi, Total Harga).
+Metode Bayar: Pilih satu atau dua metode paling umum saja dulu (misal: QRIS atau Transfer Virtual Account). Jangan integrasi terlalu banyak gateway dulu.
+Aksi User: Klik "Bayar Sekarang".
+Sistem: Timer mundur (misal 5-10 menit) untuk menahan kursi agar tidak diambil orang lain saat proses bayar.
+6. E-Tiket (Confirmation)
+User menerima bukti booking.
+Tampilan: Halaman "Pembayaran Berhasil".
+Konten Tiket: QR Code / Barcode, Kode Booking, Detail Film.
+Aksi User:
+Tombol "Download Tiket" (PDF/Image).
+Sistem otomatis mengirim salinan tiket ke Email.
+Ringkasan Fitur yang Perlu Ada vs Dibuang (Scope MVP)
+Untuk menjaga agar tetap Simple dan cepat rilis, berikut pembagiannya:
+✅ Fitur Wajib (MVP):
+Listing Film (Now Showing).
+Jadwal Tayang (Hari ini/Besok).
+Denah Kursi Interaktif.
+Kalkulasi Harga Total.
+Input Email (untuk pengiriman tiket).
+Satu/Dua Metode Pembayaran (Payment Gateway).
+Generate QR Code/Booking ID.
+❌ Fitur yang JANGAN dibuat dulu (Simpan untuk Versi 2.0):
+Coming Soon movies.
+Pre-order makanan/minuman (Popcorn).
+Sistem Member/Loyalty Points.
+Review/Rating film oleh user.
+Pilih berbagai macam bioskop (Fokus 1-2 lokasi dulu atau dummy locations).
+Refund/Cancel tiket.
+Contoh Wireframe Kasar (Teks)
+Page 1: Home
+[ Poster Film A ] [ Poster Film B ] [ Poster Film C ]
+Page 2: Detail
+Film A (2 Jam)
+Sinopsis...
+Pilih Jam: [14:00] [17:00] [20:00] -> Klik [20:00]
+Page 3: Kursi
+[ Layar Bioskop ]
+[X] [X] [ ] [ ]
+[ ] [✔] [✔] [ ]
+Total: Rp 100.000 -> [Lanjut]
+Page 4: Data & Bayar
+Nama: Budi
+Email: budi@mail.com
+Bayar via: [QRIS]
+-> [Bayar]
+Page 5: Sukses
+Terima kasih!
+[ QR CODE ]
+Tunjukkan ini pada petugas.
