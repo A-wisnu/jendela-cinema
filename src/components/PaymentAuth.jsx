@@ -215,9 +215,11 @@ const PaymentAuth = ({ bookingData, onSuccess, onCancel, onBack, currentState, o
                         ← UBAH DATA
                     </button>
                 )}
-                <button className="p5-button secondary" onClick={onCancel}>
-                    {currentState === 'q3' ? '✕ BATAL' : 'KEMBALI'}
-                </button>
+                {currentState === 'q2' && (
+                    <button className="p5-button secondary" onClick={onCancel}>
+                        KEMBALI
+                    </button>
+                )}
             </div>
         </div>
     );
