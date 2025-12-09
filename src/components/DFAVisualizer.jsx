@@ -28,8 +28,6 @@ const DFAVisualizer = ({ currentState, lastTransition }) => {
         { from: 'q3', to: 'q4', label: 'pin_valid', path: 'M 160 275 L 160 315' },
         // q3 -> q2 (back - lengkung kiri)
         { from: 'q3', to: 'q2', label: 'back', path: 'M 145 250 Q 80 220 145 200', dashed: true },
-        // q3 -> q0: back (kembali ke lobby)
-        { from: 'q3', to: 'q0', label: 'back', path: 'M 145 250 Q 50 150 145 60', dashed: true },
         // q4 -> q0: reset (reset ke lobby)
         { from: 'q4', to: 'q0', label: 'reset', path: 'M 145 320 Q 30 185 145 60', dashed: true },
     ];
@@ -226,6 +224,7 @@ const DFAVisualizer = ({ currentState, lastTransition }) => {
                                     <td>-</td>
                                     <td>-</td>
                                     <td className={isTransitionActive('q1', 'q0', 'back') ? 'active-cell' : ''}>q0</td>
+                                    <td>-</td>
                                 </tr>
                                 <tr className={currentState === 'q2' ? 'current-row' : ''}>
                                     <td className="state-cell">q2</td>
@@ -236,6 +235,7 @@ const DFAVisualizer = ({ currentState, lastTransition }) => {
                                     <td>-</td>
                                     <td>-</td>
                                     <td className={isTransitionActive('q2', 'q1', 'back') ? 'active-cell' : ''}>q1</td>
+                                    <td>-</td>
                                 </tr>
                                 <tr className={currentState === 'q3' ? 'current-row' : ''}>
                                     <td className="state-cell">q3</td>
@@ -246,7 +246,7 @@ const DFAVisualizer = ({ currentState, lastTransition }) => {
                                     <td className={isTransitionActive('q3', 'q3', 'pin_invalid') ? 'active-cell' : ''}>q3</td>
                                     <td className={isTransitionActive('q3', 'q4', 'pin_valid') ? 'active-cell' : ''}>q4</td>
                                     <td className={isTransitionActive('q3', 'q2', 'back') ? 'active-cell' : ''}>q2</td>
-                                    <td className={isTransitionActive('q3', 'q0', 'back') ? 'active-cell' : ''}>q0</td>
+                                    <td>-</td>
                                 </tr>
                                 <tr className={currentState === 'q4' ? 'current-row' : ''}>
                                     <td className="state-cell">q4</td>
@@ -282,7 +282,7 @@ const DFAVisualizer = ({ currentState, lastTransition }) => {
                         <p>S → pilih_film A</p>
                         <p>A → konfirmasi_kursi B | back S</p>
                         <p>B → email_invalid B | data_valid C | back A</p>
-                        <p>C → pin_invalid C | pin_valid D | back B | back S</p>
+                        <p>C → pin_invalid C | pin_valid D | back B</p>
                         <p>D → reset S | ε</p>
                     </div>
                 </div>

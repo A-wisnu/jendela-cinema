@@ -82,8 +82,8 @@ const PaymentAuth = ({ bookingData, onSuccess, onCancel, onBack, currentState, o
             setPin('');
 
             if (attempts >= 2) {
-                alert('Terlalu banyak percobaan gagal! Kembali ke lobby...');
-                onCancel();
+                alert('Terlalu banyak percobaan gagal! Kembali ke validasi data...');
+                onBack();
             }
         }
     };

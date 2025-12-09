@@ -62,13 +62,6 @@ function App() {
         transition('q3', 'q2', 'back');
     };
 
-    // q3 -> q0: back
-    const handleCancelPayment = () => {
-        setSelectedMovie(null);
-        setBookingData(null);
-        transition('q3', 'q0', 'back');
-    };
-
     // q4 -> q0: reset
     const handleReset = () => {
         setSelectedMovie(null);
@@ -99,7 +92,7 @@ function App() {
                         <PaymentAuth
                             bookingData={bookingData}
                             onSuccess={handlePaymentSuccess}
-                            onCancel={currentState === 'q2' ? handleCancelValidation : handleCancelPayment}
+                            onCancel={handleCancelValidation}
                             onBack={currentState === 'q3' ? handleBackToValidation : null}
                             currentState={currentState}
                             onDataValid={handleDataValid}
