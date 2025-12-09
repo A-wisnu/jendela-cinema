@@ -35,10 +35,10 @@ function App() {
         transition('q1', 'q2', 'confirm_seat');
     };
 
-    // q1 -> q0: cancel
+    // q1 -> q0: back
     const handleCancelSeats = () => {
         setSelectedMovie(null);
-        transition('q1', 'q0', 'cancel');
+        transition('q1', 'q0', 'back');
     };
 
     // q2 -> q3: data_valid (email & payment method valid)
@@ -46,10 +46,10 @@ function App() {
         transition('q2', 'q3', 'data_valid');
     };
 
-    // q2 -> q1: cancel (kembali ke pemilihan kursi)
+    // q2 -> q1: back (kembali ke pemilihan kursi)
     const handleCancelValidation = () => {
         setBookingData(null);
-        transition('q2', 'q1', 'cancel');
+        transition('q2', 'q1', 'back');
     };
 
     // q3 -> q4: pin_valid
@@ -62,11 +62,11 @@ function App() {
         transition('q3', 'q2', 'back');
     };
 
-    // q3 -> q0: cancel
+    // q3 -> q0: back
     const handleCancelPayment = () => {
         setSelectedMovie(null);
         setBookingData(null);
-        transition('q3', 'q0', 'cancel');
+        transition('q3', 'q0', 'back');
     };
 
     // q4 -> q0: reset
