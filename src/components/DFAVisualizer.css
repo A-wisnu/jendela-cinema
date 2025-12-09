@@ -103,34 +103,40 @@
     width: 100%;
     border-collapse: collapse;
     font-family: var(--font-secondary);
-    font-size: 12px;
+    font-size: 13px;
+    table-layout: auto;
 }
 
 .transition-table th {
     background: var(--p5-red);
     color: var(--p5-white);
-    padding: 10px 8px;
+    padding: 12px 10px;
     text-align: center;
     font-weight: bold;
     border: 1px solid rgba(230, 0, 18, 0.5);
     text-transform: lowercase;
-    font-size: 11px;
+    font-size: 12px;
+    white-space: nowrap;
+    min-width: 80px;
 }
 
 .transition-table td {
     background: rgba(0, 0, 0, 0.5);
     color: var(--p5-white);
-    padding: 10px 8px;
+    padding: 12px 10px;
     text-align: center;
     border: 1px solid rgba(230, 0, 18, 0.3);
     transition: all 0.3s ease;
+    font-size: 13px;
+    min-width: 50px;
 }
 
 .transition-table .state-cell {
     background: rgba(230, 0, 18, 0.2);
     color: var(--p5-yellow);
     font-weight: bold;
-    font-size: 13px;
+    font-size: 14px;
+    min-width: 60px;
 }
 
 .transition-table .current-row {

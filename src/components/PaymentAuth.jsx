@@ -1,12 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './PaymentAuth.css';
 
-const PaymentAuth = ({ bookingData, onSuccess, onCancel, currentState, onDataValid }) => {
+const PaymentAuth = ({ bookingData, onSuccess, onCancel, onBack, currentState, onDataValid }) => {
     const [email, setEmail] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('');
     const [pin, setPin] = useState('');
     const [error, setError] = useState('');
     const [attempts, setAttempts] = useState(0);
+
+    // Reset state ketika currentState berubah
+    useEffect(() => {
+        if (currentState === 'q2') {
+            // Reset PIN state ketika kembali ke Q2
+            setPin('');
+            setError('');
+            setAttempts(0);
+        } else if (currentState === 'q3') {
+            // Reset error message ketika masuk ke Q3
+            setError('');
+        }
+    }, [currentState]);
 
     const CORRECT_PIN = '1234'; // Demo PIN
 
@@ -197,8 +210,13 @@ const PaymentAuth = ({ bookingData, onSuccess, onCancel, currentState, onDataVal
             )}
 
             <div className="payment-actions">
+                {currentState === 'q3' && onBack && (
+                    <button className="p5-button secondary" onClick={onBack}>
+                        ← UBAH DATA
+                    </button>
+                )}
                 <button className="p5-button secondary" onClick={onCancel}>
-                    KEMBALI
+                    {currentState === 'q3' ? '✕ BATAL' : 'KEMBALI'}
                 </button>
             </div>
         </div>

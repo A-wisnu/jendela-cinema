@@ -57,6 +57,11 @@ function App() {
         transition('q3', 'q4', 'pin_valid');
     };
 
+    // q3 -> q2: back (kembali ke validasi data)
+    const handleBackToValidation = () => {
+        transition('q3', 'q2', 'back');
+    };
+
     // q3 -> q0: cancel
     const handleCancelPayment = () => {
         setSelectedMovie(null);
@@ -95,6 +100,7 @@ function App() {
                             bookingData={bookingData}
                             onSuccess={handlePaymentSuccess}
                             onCancel={currentState === 'q2' ? handleCancelValidation : handleCancelPayment}
+                            onBack={currentState === 'q3' ? handleBackToValidation : null}
                             currentState={currentState}
                             onDataValid={handleDataValid}
                         />

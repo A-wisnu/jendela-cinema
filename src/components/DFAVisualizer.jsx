@@ -2,34 +2,36 @@ import './DFAVisualizer.css';
 
 const DFAVisualizer = ({ currentState, lastTransition }) => {
     const states = [
-        { id: 'q0', name: 'Lobby', x: 80, y: 60, isFinal: false },
-        { id: 'q1', name: 'Pilih Kursi', x: 220, y: 100, isFinal: false },
-        { id: 'q2', name: 'Validasi Data', x: 100, y: 180, isFinal: false },
-        { id: 'q3', name: 'Input PIN', x: 240, y: 240, isFinal: false },
-        { id: 'q4', name: 'Tiket Terbit', x: 150, y: 330, isFinal: true },
+        { id: 'q0', name: 'Lobby', x: 160, y: 50, isFinal: false },
+        { id: 'q1', name: 'Pilih Kursi', x: 160, y: 120, isFinal: false },
+        { id: 'q2', name: 'Validasi Data', x: 160, y: 190, isFinal: false },
+        { id: 'q3', name: 'Input PIN', x: 160, y: 260, isFinal: false },
+        { id: 'q4', name: 'Tiket Terbit', x: 160, y: 330, isFinal: true },
     ];
 
     const transitions = [
-        // q0 -> q1
-        { from: 'q0', to: 'q1', label: 'select_movie', path: 'M 95 70 Q 140 80 205 95' },
-        // q1 -> q2
-        { from: 'q1', to: 'q2', label: 'confirm_seat', path: 'M 205 110 Q 150 140 110 165' },
-        // q1 -> q0 (cancel)
-        { from: 'q1', to: 'q0', label: 'cancel', path: 'M 210 85 Q 150 50 95 55', dashed: true },
-        // q2 -> q2 (email_invalid loop)
-        { from: 'q2', to: 'q2', label: 'email_invalid', path: 'M 80 175 Q 50 180 80 195', loop: true },
-        // q2 -> q3
-        { from: 'q2', to: 'q3', label: 'data_valid', path: 'M 115 190 Q 180 210 225 230' },
-        // q2 -> q0 (cancel)
-        { from: 'q2', to: 'q0', label: 'cancel', path: 'M 85 170 Q 70 110 80 75', dashed: true },
-        // q3 -> q3 (pin_invalid loop)
-        { from: 'q3', to: 'q3', label: 'pin_invalid', path: 'M 260 240 Q 290 245 260 260', loop: true },
-        // q3 -> q4
-        { from: 'q3', to: 'q4', label: 'pin_valid', path: 'M 230 255 Q 190 290 160 315' },
-        // q3 -> q0 (cancel)
-        { from: 'q3', to: 'q0', label: 'cancel', path: 'M 225 230 Q 150 140 85 70', dashed: true },
-        // q4 -> q0 (reset)
-        { from: 'q4', to: 'q0', label: 'reset', path: 'M 140 320 Q 90 190 80 75', dashed: true },
+        // q0 -> q1 (garis lurus ke bawah)
+        { from: 'q0', to: 'q1', label: 'select_movie', path: 'M 160 65 L 160 105' },
+        // q1 -> q2 (garis lurus ke bawah)
+        { from: 'q1', to: 'q2', label: 'confirm_seat', path: 'M 160 135 L 160 175' },
+        // q1 -> q0 (back - kembali ke lobby)
+        { from: 'q1', to: 'q0', label: 'back', path: 'M 145 110 Q 100 85 145 60', dashed: true },
+        // q2 -> q2 (email_invalid loop - kanan)
+        { from: 'q2', to: 'q2', label: 'email_invalid', path: 'M 180 185 Q 220 190 180 200', loop: true },
+        // q2 -> q3 (garis lurus ke bawah)
+        { from: 'q2', to: 'q3', label: 'data_valid', path: 'M 160 205 L 160 245' },
+        // q2 -> q1 (back - kembali ke pemilihan kursi)
+        { from: 'q2', to: 'q1', label: 'back', path: 'M 175 180 Q 220 155 175 130', dashed: true },
+        // q3 -> q3 (pin_invalid loop - kiri)
+        { from: 'q3', to: 'q3', label: 'pin_invalid', path: 'M 140 255 Q 100 260 140 270', loop: true },
+        // q3 -> q4 (garis lurus ke bawah)
+        { from: 'q3', to: 'q4', label: 'pin_valid', path: 'M 160 275 L 160 315' },
+        // q3 -> q2 (back - lengkung kiri)
+        { from: 'q3', to: 'q2', label: 'back', path: 'M 145 250 Q 80 220 145 200', dashed: true },
+        // q3 -> q0 (back - kembali ke lobby)
+        { from: 'q3', to: 'q0', label: 'back', path: 'M 145 250 Q 50 150 145 60', dashed: true },
+        // q4 -> q0 (back - reset ke lobby)
+        { from: 'q4', to: 'q0', label: 'back', path: 'M 145 320 Q 30 185 145 60', dashed: true },
     ];
 
     const getStateColor = (stateId) => {
@@ -67,25 +69,27 @@ const DFAVisualizer = ({ currentState, lastTransition }) => {
 
                     // Custom positions for each transition to avoid overlap
                     if (trans.from === 'q0' && trans.to === 'q1') {
-                        labelX = 155; labelY = 75;
+                        labelX = 175; labelY = 85;
                     } else if (trans.from === 'q1' && trans.to === 'q2') {
-                        labelX = 145; labelY = 135;
+                        labelX = 175; labelY = 155;
                     } else if (trans.from === 'q1' && trans.to === 'q0' && trans.dashed) {
-                        labelX = 155; labelY = 60;
+                        labelX = 115; labelY = 80;
                     } else if (trans.from === 'q2' && trans.to === 'q2' && trans.loop) {
-                        labelX = 45; labelY = 185;
+                        labelX = 210; labelY = 192;
                     } else if (trans.from === 'q2' && trans.to === 'q3') {
-                        labelX = 175; labelY = 210;
-                    } else if (trans.from === 'q2' && trans.to === 'q0' && trans.dashed) {
-                        labelX = 65; labelY = 120;
+                        labelX = 175; labelY = 225;
+                    } else if (trans.from === 'q2' && trans.to === 'q1' && trans.dashed) {
+                        labelX = 200; labelY = 155;
                     } else if (trans.from === 'q3' && trans.to === 'q3' && trans.loop) {
-                        labelX = 285; labelY = 250;
+                        labelX = 110; labelY = 262;
                     } else if (trans.from === 'q3' && trans.to === 'q4') {
-                        labelX = 185; labelY = 285;
+                        labelX = 175; labelY = 295;
+                    } else if (trans.from === 'q3' && trans.to === 'q2' && trans.dashed) {
+                        labelX = 105; labelY = 225;
                     } else if (trans.from === 'q3' && trans.to === 'q0' && trans.dashed) {
-                        labelX = 145; labelY = 155;
+                        labelX = 75; labelY = 155;
                     } else if (trans.from === 'q4' && trans.to === 'q0' && trans.dashed) {
-                        labelX = 90; labelY = 200;
+                        labelX = 60; labelY = 190;
                     }
 
                     return (
@@ -177,7 +181,7 @@ const DFAVisualizer = ({ currentState, lastTransition }) => {
                     <h3>Definisi 5-Tuple</h3>
                     <div className="tuple-content">
                         <p><strong>Q</strong> = {'{q0, q1, q2, q3, q4}'}</p>
-                        <p><strong>Σ</strong> = {'{pilih_film, konfirmasi_kursi, email_invalid, data_valid, pin_valid, pin_invalid, batal, reset}'}</p>
+                        <p><strong>Σ</strong> = {'{pilih_film, konfirmasi_kursi, email_invalid, data_valid, pin_valid, pin_invalid, back}'}</p>
                         <p><strong>δ</strong> = Fungsi Transisi</p>
                         <p><strong>q₀</strong> = q0 (Lobby)</p>
                         <p><strong>F</strong> = {'{q4}'}</p>
@@ -197,8 +201,7 @@ const DFAVisualizer = ({ currentState, lastTransition }) => {
                                     <th>data_valid</th>
                                     <th>pin_invalid</th>
                                     <th>pin_valid</th>
-                                    <th>cancel</th>
-                                    <th>reset</th>
+                                    <th>back</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -221,8 +224,8 @@ const DFAVisualizer = ({ currentState, lastTransition }) => {
                                     <td>-</td>
                                     <td>-</td>
                                     <td>-</td>
-                                    <td className={isTransitionActive('q1', 'q0', 'cancel') ? 'active-cell' : ''}>q0</td>
                                     <td>-</td>
+                                    <td className={isTransitionActive('q1', 'q0', 'back') ? 'active-cell' : ''}>q0</td>
                                 </tr>
                                 <tr className={currentState === 'q2' ? 'current-row' : ''}>
                                     <td className="state-cell">q2</td>
@@ -232,8 +235,8 @@ const DFAVisualizer = ({ currentState, lastTransition }) => {
                                     <td className={isTransitionActive('q2', 'q3', 'data_valid') ? 'active-cell' : ''}>q3</td>
                                     <td>-</td>
                                     <td>-</td>
-                                    <td className={isTransitionActive('q2', 'q0', 'cancel') ? 'active-cell' : ''}>q0</td>
                                     <td>-</td>
+                                    <td className={isTransitionActive('q2', 'q1', 'back') ? 'active-cell' : ''}>q1</td>
                                 </tr>
                                 <tr className={currentState === 'q3' ? 'current-row' : ''}>
                                     <td className="state-cell">q3</td>
@@ -243,8 +246,8 @@ const DFAVisualizer = ({ currentState, lastTransition }) => {
                                     <td>-</td>
                                     <td className={isTransitionActive('q3', 'q3', 'pin_invalid') ? 'active-cell' : ''}>q3</td>
                                     <td className={isTransitionActive('q3', 'q4', 'pin_valid') ? 'active-cell' : ''}>q4</td>
-                                    <td className={isTransitionActive('q3', 'q0', 'cancel') ? 'active-cell' : ''}>q0</td>
-                                    <td>-</td>
+                                    <td className={isTransitionActive('q3', 'q2', 'back') ? 'active-cell' : ''}>q2</td>
+                                    <td className={isTransitionActive('q3', 'q0', 'back') ? 'active-cell' : ''}>q0</td>
                                 </tr>
                                 <tr className={currentState === 'q4' ? 'current-row' : ''}>
                                     <td className="state-cell">q4</td>
@@ -255,7 +258,8 @@ const DFAVisualizer = ({ currentState, lastTransition }) => {
                                     <td>-</td>
                                     <td>-</td>
                                     <td>-</td>
-                                    <td className={isTransitionActive('q4', 'q0', 'reset') ? 'active-cell' : ''}>q0</td>
+                                    <td>-</td>
+                                    <td className={isTransitionActive('q4', 'q0', 'back') ? 'active-cell' : ''}>q0</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -278,10 +282,10 @@ const DFAVisualizer = ({ currentState, lastTransition }) => {
                     <h3>Aturan Grammar</h3>
                     <div className="grammar-content">
                         <p>S → pilih_film A</p>
-                        <p>A → konfirmasi_kursi B | batal S</p>
-                        <p>B → email_invalid B | data_valid C | batal S</p>
-                        <p>C → pin_invalid C | pin_valid D | batal S</p>
-                        <p>D → reset S | ε</p>
+                        <p>A → konfirmasi_kursi B | back S</p>
+                        <p>B → email_invalid B | data_valid C | back A</p>
+                        <p>C → pin_invalid C | pin_valid D | back B | back S</p>
+                        <p>D → back S | ε</p>
                     </div>
                 </div>
             </div>
